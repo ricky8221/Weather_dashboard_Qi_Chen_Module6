@@ -43,10 +43,10 @@ $('#searchForm').on('submit', function (event) {
         storeCitiLocation()
         // search weather using Lat&Lon in localstorage 
         searchWeather();
+        displayCities(pastCities);
 
     });
 
-    displayCities(pastCities);
 
 })
 
@@ -147,14 +147,12 @@ $(document).on("click", "button.city-btn", function (event) {
         storeCitiLocation()
         // search weather using Lat&Lon in localstorage 
         searchWeather();
+        displayCities(pastCities);
+
 
     });
     
 
 });
 
-var text = "foo bar loo zoo moo";
-text = text.toLowerCase()
-    .split(' ')
-    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-    .join(' ');
+
