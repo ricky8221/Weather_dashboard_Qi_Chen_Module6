@@ -56,7 +56,7 @@ function searchWeather(){
     var cityInfo = JSON.parse(localStorage.getItem("pastCities"))
     var lat = cityInfo[0].lat;
     var lon = cityInfo[0].lon;
-    var city = cityInfo[0].city;
+    var city = cityInfo[0].city.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
     var weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=767baab1ba615005b7b57e268ed513fe`
     cityEl.text(city);
     }
@@ -111,27 +111,30 @@ function setUVIndexColor(uvi) {
 function displayCities(pastCities) {
     cityListEl.empty();
     var cityInfo = JSON.parse(localStorage.getItem("pastCities"))
-    for (var i=0; i<5; i++){
+    pastCities.splice(5);
+    var storedCities = [...pastCities]
+
+    storedCities.forEach(function(cityName){
 
         let cityDiv = $('<div>').addClass('col-12 city');
-        let cityBtn = $('<button>').addClass('btn btn-light city-btn').text(cityInfo[i].city);
+        let cityBtn = $('<button>').addClass('btn btn-light city-btn').text(cityName.city);
         cityDiv.append(cityBtn);
         cityListEl.append(cityDiv);
 
-    }
-   
+    })
 
-}
+    }
+
 
 displayCities(pastCities);
 
-$(document).on("click", ".city-btn", function () {
+$(document).on("click", "button.city-btn", function (event) {
     let clickedCity = $(this).text();
     var LocationURL = `https://api.openweathermap.org/data/2.5/weather?q=${clickedCity}&appid=${key}`
-    console.log(LocationURL);
+    var city = $(this).text().toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
     fetch(LocationURL)
     .then(function(response){
-
+        
         return response.json();
     
     })
@@ -149,3 +152,9 @@ $(document).on("click", ".city-btn", function () {
     
 
 });
+
+var text = "foo bar loo zoo moo";
+text = text.toLowerCase()
+    .split(' ')
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(' ');
