@@ -24,7 +24,7 @@ $('#searchForm').on('submit', function (event) {
 
     event.preventDefault();
     // get city name 
-    let city = cityInput.val().trim();;
+    let city = cityInput.val().trim().toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
     // clear input field
     cityInput.val('');
     var LocationURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`
@@ -124,7 +124,6 @@ function displayCities(pastCities) {
     })
 
     }
-
 
 displayCities(pastCities);
 
