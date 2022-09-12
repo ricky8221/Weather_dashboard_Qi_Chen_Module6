@@ -154,5 +154,3 @@ $(document).on("click", "button.city-btn", function (event) {
     
 
 });
-
-
